@@ -18,7 +18,7 @@ def selectionSort(arr):
         newarray[i], newarray[minIndx] = newarray[minIndx], newarray[i]
 
     # endTime = T.time_ns()
-    return newarray, iterations
+    return {"array": newarray, "iterations": iterations}
 
 
 def bubbleSort(arr):
@@ -38,7 +38,7 @@ def bubbleSort(arr):
         if not swapped:
             break
 
-    return {"array": newarray, "interations": iterations}
+    return {"array": newarray, "iterations": iterations}
 
 
 def insertionSort(arr):
@@ -150,65 +150,81 @@ if __name__ == '__main__':
                          "Ascending_data": [], "Descending_Data": []}
 
     np.random.seed(10)
-    # Random Order Data
-    for i in range(1000, 5001, 1000):
-        arr = np.random.randint(0, i, i)
-        selectionSortMetadata["Random_Data"].append(selectionSort(arr))
-        arr = np.random.randint(0, i, i)
-        bubbleSortMetadata["Random_Data"].append(bubbleSort(arr))
-        arr = np.random.randint(0, i, i)
-        insertionSortMetadata["Random_Data"].append(insertionSort(arr))
-        arr = np.random.randint(0, i, i)
-        mergeSortMetadata["Random_Data"].append(mergeSort(arr))
-        arr = np.random.randint(0, i, i)
-        quickSortMetadata["Random_Data"].append(quickSort(arr))
+    # # Random Order Data
+    # for i in range(1000, 5001, 1000):
+    #     arr = np.random.randint(0, i, i)
+    #     selectionSortMetadata["Random_Data"].append(selectionSort(arr))
+    #     arr = np.random.randint(0, i, i)
+    #     bubbleSortMetadata["Random_Data"].append(bubbleSort(arr))
+    #     arr = np.random.randint(0, i, i)
+    #     insertionSortMetadata["Random_Data"].append(insertionSort(arr))
+    #     arr = np.random.randint(0, i, i)
+    #     mergeSortMetadata["Random_Data"].append(mergeSort(arr))
+    #     arr = np.random.randint(0, i, i)
+    #     quickSortMetadata["Random_Data"].append(quickSort(arr))
 
     # Descending Order Data
     for i in range(1000, 5001, 1000):
         arr = list(range(i))
         arr.reverse()
-        selectionSortMetadata["Ascending_data"].append(selectionSort(arr))
+        selectionSortMetadata["Descending_Data"].append(selectionSort(arr))
         arr = list(range(i))
         arr.reverse()
-        bubbleSortMetadata["Ascending_data"].append(bubbleSort(arr))
+        bubbleSortMetadata["Descending_Data"].append(bubbleSort(arr))
         arr = list(range(i))
         arr.reverse()
-        insertionSortMetadata["Ascending_data"].append(insertionSort(arr))
+        insertionSortMetadata["Descending_Data"].append(insertionSort(arr))
         arr = list(range(i))
         arr.reverse()
-        mergeSortMetadata["Ascending_data"].append(mergeSort(arr))
+        mergeSortMetadata["Descending_Data"].append(mergeSort(arr))
         arr = list(range(i))
         arr.reverse()
-        quickSortMetadata["Ascending_data"].append(quickSort(arr))
+        quickSortMetadata["Descending_Data"].append(quickSort(arr))
 
-    # Ascending Order Data
-    for i in range(1000, 5001, 1000):
-        arr = list(range(i))
-        selectionSortMetadata["Ascending_data"].append(selectionSort(arr))
-        arr = list(range(i))
-        bubbleSortMetadata["Ascending_data"].append(bubbleSort(arr))
-        arr = list(range(i))
-        insertionSortMetadata["Ascending_data"].append(insertionSort(arr))
-        arr = list(range(i))
-        mergeSortMetadata["Ascending_data"].append(mergeSort(arr))
-        arr = list(range(i))
-        quickSortMetadata["Ascending_data"].append(quickSort(arr))
+    # # Ascending Order Data
+    # for i in range(1000, 5001, 1000):
+    #     arr = list(range(i))
+    #     selectionSortMetadata["Ascending_data"].append(selectionSort(arr))
+    #     arr = list(range(i))
+    #     bubbleSortMetadata["Ascending_data"].append(bubbleSort(arr))
+    #     arr = list(range(i))
+    #     insertionSortMetadata["Ascending_data"].append(insertionSort(arr))
+    #     arr = list(range(i))
+    #     mergeSortMetadata["Ascending_data"].append(mergeSort(arr))
+    #     arr = list(range(i))
+    #     quickSortMetadata["Ascending_data"].append(quickSort(arr))
 
-    print(selectionSortMetadata)
-    print(bubbleSortMetadata)
-    print(insertionSortMetadata)
-    print(mergeSortMetadata)
-    print(quickSortMetadata)
+    print(list(map(lambda x: x["iterations"],
+          selectionSortMetadata["Descending_Data"])))
+    print(list(map(lambda x: x["iterations"],
+          bubbleSortMetadata["Descending_Data"])))
+    print(list(map(lambda x: x["iterations"],
+          insertionSortMetadata["Descending_Data"])))
+    print(list(map(lambda x: x["iterations"],
+          mergeSortMetadata["Descending_Data"])))
+    # print(list(map(lambda x: x["iterations"],
+    #       quickSortMetadata["Random_Data"])))
 
-    # iterationsList = list(
-    #     map(lambda x: x['iterations'], selectionSortMetadata))
+    selectionSort_iterationsList = list(
+        map(lambda x: x['iterations'], selectionSortMetadata["Random_Data"]))
+    bubbleSort_iterationsList = list(
+        map(lambda x: x['iterations'], bubbleSortMetadata["Random_Data"]))
+    insertionSort_iterationsList = list(
+        map(lambda x: x['iterations'], insertionSortMetadata["Random_Data"]))
+    mergeSort_iterationsList = list(
+        map(lambda x: x['iterations'], mergeSortMetadata["Random_Data"]))
+    quickSort_iterationsList = list(
+        map(lambda x: x['iterations'], quickSortMetadata["Random_Data"]))
+
     # print(iterationsList)
-
-    # iterations_fig, iterations_ax = plt.subplots()
-    # iterations_ax.plot(range(len(iterationsList)), iterationsList)
-
-    # iterations_ax.set_aspect("equal")
-    # # plt.figure(figsize=(10,10))
-    # plt.show()
+    plt.plot(selectionSort_iterationsList)
+    plt.plot(bubbleSort_iterationsList)
+    plt.plot(insertionSort_iterationsList)
+    plt.plot(mergeSort_iterationsList)
+    plt.plot(quickSort_iterationsList)
+    plt.legend(["selection sort", "bubble sort",
+               "insertion sort", "merge sort", "quick sort"])
+    # plt.set_aspect("equal")
+    plt.show()
 
     # print(selectionSortMetadata)
